@@ -1,2 +1,4 @@
 # RootTheCampus-Challenges
-Some vulnerable docker containers used for the RootTheCampus CTF
+Some intentionally vulnerable docker containers used for the RootTheCampus CTF
+
+USE AT OWN RISK!
