@@ -1,0 +1,80 @@
+version: "3.9"
+services:
+  i_robot:
+    build:
+      context: ./i_robot
+      args:
+        - FLAG_1=FLAG{N07_3v3ry0n3_1s_4_R0b07}
+        - FLAG_2=FLAG{N07_3v3ry0n3_h4S_G0d_m0De}
+    ports:
+      - "8891:80"
+  simple_ssh:
+    build:
+      context: ./simple_ssh
+      args:
+        - FLAG_1=FLAG{n1cE_4nD_eAsY}
+        - FLAG_2=FLAG{jS3c_Th3_R1pp3R}
+    ports:
+      - "8892:22"
+  simple_nc:
+    build:
+      context: ./simple_nc
+      args:
+        - FLAG_1=FLAG{N3tC4t_4_TH3_wIn}
+        - FLAG_2=FLAG{N3tC4t_d4Ta_Pr0v1d3r}
+    ports:
+      - "8896:6666"
+  dear_enum:
+    build:
+      context: ./dear_enum
+      args:
+        - FLAG_1=FLAG{TH3_3numerati0n_k1Dd0}
+        - FLAG_2=FLAG{kn0wS_wh4T_h3_H4s_t0_DO}
+    ports:
+      - "8893:80"
+  the_ethiophpians:
+    build:
+      context: ./the_ethioPHPians
+      args:
+        - FLAG_1=FLAG{3V3ryTh1ng_CR45h!}
+        - FLAG_2=FLAG{1F_y0u_c4n7_1ncIud3}
+        - FLAG_3=FLAG{f1L7ers_4Re_U5fuL}
+    ports:
+      - "8894:80"
+  grafana:
+    build:
+      context: ./grafana
+      args:
+        - FLAG_1=FLAG{Th3_only_tRu3_tr4v313r}
+    ports:
+      - "8895:3000"
+  all_you_need_public_frontend:
+    build:
+      context: ./all_you_need/shop
+      dockerfile: Dockerfile_public_frontend
+    ports:
+      - "7711:80"
+  docker_spawn:
+    build:
+      context: ./docker_spawn
+      args:
+        # commented must be in a new line!
+        # user;docker_project_folder;start_container_name;shell
+        #
+        #feedback;log4feedback;kali;sh-ssh.py:pwn4j
+        #feedback;log4feedback;kali;sh-ssh.py:pwn4j[optional container to expose ports]
+        - |
+          DS_CONFIG=
+          enumerator;all_you_need;kali;sh-ssh.py
+    ports:
+      - "1337:22"
+    volumes:
+      - //var/run/docker.sock:/var/run/docker.sock
+      # mount docker_project_folder
+      - ./all_you_need:/srv/compose_projects/all_you_need:ro
+      # TODO: if images are rebuild mount "main" kali and reference in project compose
+      #- ./kali:/srv/compose_projects/wshop/kali:ro
+
+networks:
+  challenge-network:
+    driver: bridge

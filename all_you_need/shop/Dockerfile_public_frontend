@@ -1,0 +1,6 @@
+FROM php:apache
+
+ENV PORT 80
+EXPOSE 80
+
+COPY ./html /var/www/html/

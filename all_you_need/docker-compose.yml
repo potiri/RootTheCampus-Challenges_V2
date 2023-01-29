@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  kali:
+    build:
+      context: ./kali
+    #stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    hostname: kali
+    container_name: $CONTAINER_NAME_KALI
+    image: all-you-need-kali
+    networks:
+      ctf:
+  shop:
+    build:
+      context: ./shop
+      args:
+        - SSH_PASSWORD=mySuperSecureP4ssw0rd!
+        - FLAG_1=FLAG{n0t_to_B4d}
+        - FLAG_2=FLAG{g377ing_beTTeR}
+        - FLAG_3=FLAG{Th3_3nuM3r470R.}
+    #ports:
+    #  - "80:80"
+    #  - "3333:3333"
+    environment:
+      - PORT=7711
+    hostname: shop
+    container_name: $CONTAINER_NAME_SHOP
+    image: all-you-need-shop
+    networks:
+      ctf:
+    depends_on:
+      - kali
+networks:
+  ctf:
+    name: $NETWORK_NAME
+    driver: bridge

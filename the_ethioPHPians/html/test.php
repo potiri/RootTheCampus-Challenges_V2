@@ -1,0 +1,1 @@
+<?php echo 'Hidden value: test'; ?>
