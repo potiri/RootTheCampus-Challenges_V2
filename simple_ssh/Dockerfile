@@ -1,9 +1,10 @@
 FROM ubuntu:latest
 
+ARG SSH_PASSWORD_FLAG_1
 ARG FLAG_1
 ARG FLAG_2
 
-RUN apt update && apt install openssh-server sudo -y
+RUN apt update && apt install openssh-server -y
 
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
@@ -11,7 +12,7 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 ARG USER=john
 ARG FLAG_PATH=/home/$USER/flag1
 RUN adduser $USER
-RUN echo "$USER:dO3Mu57t3rM4n!" | chpasswd
+RUN echo "$USER:$SSH_PASSWORD_FLAG_1" | chpasswd
 RUN echo "$FLAG_1" >> $FLAG_PATH
 RUN chown $USER $FLAG_PATH
 RUN chgrp $USER $FLAG_PATH
@@ -40,8 +41,7 @@ RUN chmod 444 /home/$USER/.ssh/authorized_keys
 RUN echo "Match User $USER\nPasswordAuthentication no" >> /etc/ssh/sshd_config
 
 
-RUN service ssh start
-
 EXPOSE 22
 
+RUN service ssh start
 CMD ["/usr/sbin/sshd","-D"]

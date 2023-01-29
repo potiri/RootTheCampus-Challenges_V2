@@ -12,6 +12,7 @@ services:
     build:
       context: ./simple_ssh
       args:
+        - SSH_PASSWORD_FLAG_1=dO3Mu57t3rM4n!
         - FLAG_1=FLAG{n1cE_4nD_eAsY}
         - FLAG_2=FLAG{jS3c_Th3_R1pp3R}
     ports:
