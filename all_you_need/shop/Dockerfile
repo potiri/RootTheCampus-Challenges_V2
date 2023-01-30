@@ -46,15 +46,13 @@ ARG FLAG_PATH=/home/$USER/flag2
 RUN adduser $USER
 RUN echo "$USER:nQ35afeF9Sf142uw2ehD231!" | chpasswd
 RUN echo "$FLAG_2" >> $FLAG_PATH
-RUN chown sec-sys $FLAG_PATH
-RUN chgrp sec-sys $FLAG_PATH
+RUN chown $USER $FLAG_PATH
+RUN chgrp $USER $FLAG_PATH
 RUN chmod 640 $FLAG_PATH
 
 RUN echo "#!/usr/bin/python2\nimport datetime\nopen('/tmp/sec-result','w').write(datetime.datetime.now().strftime('%H:%M:%S') + ' | status=ok')" >> /usr/bin/.sec-check.py
-RUN chown sec-sys /usr/bin/.sec-check.py
-RUN groupadd security
-RUN chgrp security /usr/bin/.sec-check.py
-#RUN chgrp sec-sys /usr/bin/.sec-check.py
+RUN chown $USER /usr/bin/.sec-check.py
+RUN chgrp $USER /usr/bin/.sec-check.py
 RUN chmod 646 /usr/bin/.sec-check.py
 RUN echo "*/1 * * * * python2 /usr/bin/.sec-check.py" | crontab -u sec-sys - 
 
