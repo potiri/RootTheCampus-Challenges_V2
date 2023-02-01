@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# stop all kali/shop running containers
-#docker stop $(docker ps -aq --filter="name=^/(kali-|shop-)")
-# remove all kali/shop containers
-#docker rm $(docker ps -aq --filter="name=^/(kali-|shop-)")
-
+# stop and remove all kali-/shop- containers
 docker ps --format "{{.ID}} {{.CreatedAt}}" --filter="name=^/(kali-|shop-)" | \
 while read id cdate ctime _; \
 	do if [[ $(date +%s -d "$cdate $ctime") -lt $(date +%s -d '3 hours ago') ]]; \
@@ -14,4 +10,5 @@ while read id cdate ctime _; \
 	fi; \
 done
 
-
+# prune unused networks
+docker network prune -f

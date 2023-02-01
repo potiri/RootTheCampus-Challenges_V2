@@ -8,3 +8,6 @@ docker rm $(docker ps -aq)
 
 # down challenge containers/networks
 docker compose down
+
+# prune all unused networks
+docker network prune -f
