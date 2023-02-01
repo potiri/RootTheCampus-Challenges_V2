@@ -1,7 +1,7 @@
 # RootTheCampus-Challenges
 Some intentionally vulnerable docker containers used for the RootTheCampus CTF
 
-USE AT OWN RISK!
+**USE AT OWN RISK!**
 
 Info: 
 * The **Simple SSH** challenge includes a ssh private key which has to be cracked for the challenge. You may generate a new one. 
