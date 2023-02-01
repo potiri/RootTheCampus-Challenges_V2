@@ -38,8 +38,6 @@ def cleanup():
             #print("Executing:", f'sudo /usr/bin/nohup /usr/bin/docker-compose --env-file "{tmp_names_env_file}" -f "/srv/compose_projects/{DS_PROJECT_NAME}/docker-compose.yml" -p "{ds_project_name_unique}" down &')
             # set preexec_fn to ignore signint on this subprocess
             subprocess.Popen(f'sudo /usr/bin/nohup /usr/bin/docker-compose --env-file "{tmp_names_env_file}" -f "/srv/compose_projects/{DS_PROJECT_NAME}/docker-compose.yml" -p "{ds_project_name_unique}" down; rm "{tmp_names_env_file}"', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT, preexec_fn=os.setpgrp).wait()
-            # subprocess.Popen(f'sudo /bin/sh -c \'/usr/bin/nohup /usr/bin/docker-compose --env-file "{tmp_names_env_file}" -f "/srv/compose_projects/{DS_PROJECT_NAME}/docker-compose.yml" -p "{ds_project_name_unique}" down &\'', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT, preexec_fn=os.setpgrp).wait()
-            # subprocess.Popen(f'sudo /usr/bin/docker-compose --env-file "{tmp_names_env_file}" -f "/srv/compose_projects/{DS_PROJECT_NAME}/docker-compose.yml" -p "{ds_project_name_unique}" down', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT, preexec_fn=os.setpgrp).wait()
             
             # Delete tmp env file
             #if tmp_names_env_file:
@@ -59,7 +57,7 @@ def graceful_exit(signum, frame):
         sys.exit(1)
        
        
-def create_unique_name(name):
+def create_tokenized_name(name):
     return name + "-" + session_token
 
 
@@ -85,8 +83,8 @@ if __name__ == "__main__":
 
             print()
             
-            ds_project_name_unique = create_unique_name(DS_PROJECT_NAME) 
-            ds_start_container_unique = create_unique_name(DS_START_CONTAINER) 
+            ds_project_name_unique = create_tokenized_name(DS_PROJECT_NAME) 
+            ds_start_container_unique = create_tokenized_name(DS_START_CONTAINER) 
             
             if reuse_session:
                 return_code = subprocess.run([f'sudo /usr/bin/docker container inspect "{ds_start_container_unique}"'], shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT).returncode
@@ -133,7 +131,7 @@ if __name__ == "__main__":
         if DS_EXPOSED_CONTAINER: # and False:
             print()
             print("Exposed ports [internal -> external]")
-            ds_exposed_container_unique = create_unique_name(DS_EXPOSED_CONTAINER)
+            ds_exposed_container_unique = create_tokenized_name(DS_EXPOSED_CONTAINER)
             #pro = subprocess.Popen(f'sudo /usr/bin/docker port "{ds_exposed_container_unique}"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).wait()
             with subprocess.Popen(f'sudo /usr/bin/docker port "{ds_exposed_container_unique}"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT) as proc:
                 for line in iter(proc.stdout.readline, b''):
