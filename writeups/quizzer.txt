@@ -1,0 +1,63 @@
+1.	What command can you use to let you show TCP/IP network configuration values?
+	--> ifconfig (15p)
+2.	What command can you use to let you show the content of a file?
+	--> cat (15p)
+3.  What command can you use to explore hidden files of a web directory?/ What command can you use to enumerate hidden directories and files? 
+	--> dirb / gobuster (20p)
+4. Which tool is a login cracker? 
+	(1) hydra 
+	(2) nikto  
+	(3) chisel
+	--> 1 
+5. Which command can you use to download content of an online file? 
+	--> wget (10p)
+6. What does the argument “-p-“ in context of “nmap” mean? 
+	(1) fast (limited) port scan
+	(2) scan the whole range (excluding zero)
+	--> 2
+7. Which argument/parameter do you have to add to “nmap” to identify only active hosts on your network without sending any packets to them?
+	--> nmap -sp (ping scan) (15p)
+8. Which argument do you have to add to “nmap” to enable a comprehensive set of scan options (such as OS detection, version scanning, script scanning etc.)? 
+	--> A 
+9. Which of the following commands stand for a text editor? (multiple selection possible)
+	(1) write
+	(2) vim
+	(3) edit
+	--> 2
+10. What is the name of utility that can establish a TCP or UDP connection between two instances –meaning it can write and read/listen through an open port? 
+	--> netcat/nc
+11. What argument should be added to “nc” to specify that netcat should listen for an incoming connection rather than initiate a connection to a remote host? 
+	--> l 
+12. What argument should be added to “nc” to get more verbose output/information?
+	--> v
+ 13. What parameter should be added to "nc" to show only IP numbers, not DNS names (numeric-only)?
+	--> n 
+14. Which parameter should be added to “nc” to specify local source port? 
+	--> p 
+15.  How do you spawn a bash shell from within a python shell (with pty already imported)?
+	-->pty.spawn(“bin/bash/”)
+17. How is the file storing usernames and hashed passwords called in Linux (give your answer in  the form name.format)?
+	--> /etc/shadow
+18. How do you start the Metasploit framework console?
+	--> msfconsole
+19. Name the other database for searching exploits known from this course!
+	--> searchSploit
+20. How can you inspect html code and the elements on a website?
+	(1) f5
+	(2) right-click -> view paeg source 
+	(3) Pray the to holy browser god
+	--> 2
+21. Right or wrong: John the Ripper must always use the same preinstalled wordlist for cracking passwords.
+	(1) true
+	(2) false
+	--> wrong
+22. Which parameter allows you to specify a private key for your ssh connection?
+	i
+23. Which tool is often used to scan a network for open ports and so on…
+	nmap
+24. Which command/character allows you to redirect standard output from one program, or process and send it to another?
+	|
+25. How can you provide known password information for John The Ripper to optimize the cracking?
+	mask
+
+

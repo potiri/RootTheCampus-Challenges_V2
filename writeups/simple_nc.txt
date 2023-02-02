@@ -1,0 +1,12 @@
+Flag 1:
+nc <CHALLENGE_SERVER_IP> 8896
+
+
+Flag 2:
+base64 encode Flag 1:
+echo -n "XXX" | base64
+
+pipe encoded flag directly to nc or else a very short timeout is hit
+echo -n "XXX" | base64 | nc <CHALLENGE_SERVER_IP> 8896
+
+decode hex string

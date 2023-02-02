@@ -1,0 +1,12 @@
+Flag 1:
+dirb http://<CHALLENGE_SERVER_IP>:8893
+
+Check folders
+-> bonus
+
+
+Flag 2:
+dirb http://<CHALLENGE_SERVER_IP>:8893 /usr/share/wordlists/dirb/big.txt
+
+Check folders
+-> apollo13

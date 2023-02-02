@@ -1,0 +1,33 @@
+Flag 1:
+
+ssh john@<CHALLENGE_SERVER_IP> -p 8892
+cat flag1
+
+
+
+Flag 2:
+Info: https://github.com/openwall/john/blob/bleeding-jumbo/doc/MASK
+
+dc_8mnbUtwrbpqB8ksPblg5S2J2!O.+
+d c _ 8 mnbUtwrbpqB8ksPblg5S2J2! O . +
+
+Known password information/parts:
+1: unknown case character: d
+2: any printable lower case ascii character
+2: any printable ascii character
+4: any number
+5: known partial string: mnbUtwrbpqB8ksPblg5S2J2!
+6: a character in range: L-S
+7: one of the following special characters: ?.,
+8: any printable special ascii character
+
+
+Optional: wget https://raw.githubusercontent.com/magnumripper/JohnTheRipper/bleeding-jumbo/run/ssh2john.py
+
+ssh2john jsec_id_rsa > jsec_id_rsa.hash
+john --mask=[dD]?l?a?dmnbUtwrbpqB8ksPblg5S2J2\![L-S][\?\.\,]?s --max-len=31 jsec_id_rsa.hash
+
+
+ssh jsec@<CHALLENGE_SERVER_IP> -i /path_to_private_key/jsec_id_rsa -p 8892
+ENTER PASSPHRASE
+cat flag2

