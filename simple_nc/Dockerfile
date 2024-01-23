@@ -22,7 +22,7 @@ CMD while true; do nc -l -p 6666 -c '\
 	printf "Here is the first flag:\n$FLAG_1"; \
 	printf "\n\n" && cat wizard.txt && printf "\n\nAs a 64 bit wizard i am pretty BASEd on my first secret. Can you help me out?"; \
 	read -t 0.1 message; \
-	([ x"$message" = x"$(echo -n "$FLAG_1" | base64)" ] && printf "\n\nGreat job, here is the second flag:\n$(echo -n "$FLAG_2" | od -A n -t x1)") \
+	([ x"$message" = x"$(echo "$FLAG_1" | base64)" ] && printf "\n\nGreat job, here is the second flag:\n$(echo -n "$FLAG_2" | od -A n -t x1)") \
 	|| (printf "\n\n" && ([ x"$message" != x"" ] && printf "Fast enough but incorrect!" \
 	|| printf "Sry to slow..."))'; \
 done
